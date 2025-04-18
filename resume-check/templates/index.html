@@ -6,94 +6,141 @@
     <title>자소서 첨삭 요청</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fc;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
             color: #333;
         }
 
         .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 600px;
-            margin: 40px auto; /* 페이지 위아래 여백 추가 */
+            max-width: 800px;
+            margin: 50px auto;
+            box-sizing: border-box;
         }
 
         h1 {
             text-align: center;
+            color: #6f42c1;
+            font-size: 28px;
             margin-bottom: 20px;
-            color: #5a2d83;
+            font-weight: 600;
+        }
+
+        label {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 10px;
+            display: block;
         }
 
         textarea {
             width: 100%;
-            height: 200px;
-            padding: 10px;
-            border-radius: 5px;
+            height: 280px;
+            padding: 16px;
+            border-radius: 10px;
             border: 1px solid #ddd;
             font-size: 16px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             resize: none;
+            box-sizing: border-box;
+            background-color: #fafafa;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus {
+            border-color: #6f42c1;
+            outline: none;
         }
 
         input[type="submit"] {
             width: 100%;
-            padding: 10px;
+            padding: 14px;
             border: none;
-            background-color: #5a2d83;
+            background-color: #6f42c1;
             color: white;
-            font-size: 16px;
-            border-radius: 5px;
+            font-size: 18px;
+            border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s;
+            font-weight: 600;
         }
 
         input[type="submit"]:hover {
-            background-color: #4a1f5d;
+            background-color: #5a2d83;
         }
 
         .feedback {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            background-color: #f4f4f9;
+            background-color: #f0f8ff;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #d1e7fd;
+            margin-top: 40px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
 
         .feedback-item {
             background-color: #ffffff;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
+            padding: 18px;
+            margin: 12px 0;
+            border-radius: 8px;
             border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .feedback-item h3 {
-            margin-bottom: 10px;
-            color: #0056b3;
+            margin-bottom: 12px;
+            color: #6f42c1;
+            font-size: 18px;
+            font-weight: 600;
         }
 
         .feedback-item p {
-            color: #333;
+            color: #444;
             font-size: 16px;
+            line-height: 1.6;
         }
 
         .copy-button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            background-color: #4CAF50;
+            padding: 12px 22px;
+            background-color: #28a745;
             color: white;
             border: none;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 6px;
             font-size: 16px;
             width: 100%;
+            margin-top: 25px;
+            transition: background-color 0.3s ease;
         }
 
         .copy-button:hover {
-            background-color: #45a049;
+            background-color: #218838;
+        }
+
+        /* 반응형 디자인 */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 25px;
+                margin: 20px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            textarea {
+                height: 220px;
+            }
+
+            input[type="submit"], .copy-button {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
@@ -101,8 +148,8 @@
     <div class="container">
         <h1>자소서 첨삭 요청</h1>
         <form method="POST">
-            <label for="resume_text">자소서 내용</label><br>
-            <textarea id="resume_text" name="resume_text" rows="10" cols="50"></textarea><br>
+            <label for="resume_text">자소서 내용</label>
+            <textarea id="resume_text" name="resume_text" rows="10" cols="50" placeholder="자소서 내용을 여기에 입력하세요..."></textarea>
             <input type="submit" value="첨삭 요청">
         </form>
 
