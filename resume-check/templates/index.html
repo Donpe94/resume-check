@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자소서 첨삭 요청</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            margin: 40px auto; /* 페이지 위아래 여백 추가 */
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #5a2d83;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            margin-bottom: 20px;
+            resize: none;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #5a2d83;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #4a1f5d;
+        }
+
+        .feedback {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+
+        .feedback-item {
+            background-color: #ffffff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .feedback-item h3 {
+            margin-bottom: 10px;
+            color: #0056b3;
+        }
+
+        .feedback-item p {
+            color: #333;
+            font-size: 16px;
+        }
+
+        .copy-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        .copy-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>자소서 첨삭 요청</h1>
+        <form method="POST">
+            <label for="resume_text">자소서 내용</label><br>
+            <textarea id="resume_text" name="resume_text" rows="10" cols="50"></textarea><br>
+            <input type="submit" value="첨삭 요청">
+        </form>
+
+        {% if result %}
+        <h2>첨삭 결과:</h2>
+        <div class="feedback" id="feedback-content">
+            {{ result|safe }}
+        </div>
+        <button class="copy-button" onclick="copyFeedback()">복사하기</button>
+        {% endif %}
+    </div>
+
+    <script>
+        function copyFeedback() {
+            var feedbackContent = document.getElementById("feedback-content");
+
+            var range = document.createRange();
+            range.selectNode(feedbackContent);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+
+            try {
+                document.execCommand('copy');
+                alert("피드백이 복사되었습니다!");
+            } catch (err) {
+                alert("복사 실패: " + err);
+            }
+
+            window.getSelection().removeAllRanges();
+        }
+    </script>
+</body>
+</html>
