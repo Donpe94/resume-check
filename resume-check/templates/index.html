@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>자소서 첨삭 요청</title>
     <style>
+        /* 기존 스타일 유지 */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f8f9fc;
@@ -84,28 +85,6 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
 
-        .feedback-item {
-            background-color: #ffffff;
-            padding: 18px;
-            margin: 12px 0;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .feedback-item h3 {
-            margin-bottom: 12px;
-            color: #6f42c1;
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .feedback-item p {
-            color: #444;
-            font-size: 16px;
-            line-height: 1.6;
-        }
-
         .copy-button {
             padding: 12px 22px;
             background-color: #28a745;
@@ -147,26 +126,47 @@
 <body>
     <div class="container">
         <h1>자소서 첨삭 요청</h1>
-        <form method="POST">
+        <form id="resume-form">
             <label for="resume_text">자소서 내용</label>
             <textarea id="resume_text" name="resume_text" rows="10" cols="50" placeholder="자소서 내용을 여기에 입력하세요..."></textarea>
             <input type="submit" value="첨삭 요청">
         </form>
 
-        {% if result %}
         <h2>첨삭 결과:</h2>
-        <div class="feedback" id="feedback-content">
-            {{ result|safe }}
-        </div>
+        <div id="feedback-content" class="feedback"></div>
         <button class="copy-button" onclick="copyFeedback()">복사하기</button>
-        {% endif %}
     </div>
 
     <script>
-        function copyFeedback() {
-            var feedbackContent = document.getElementById("feedback-content");
+        document.getElementById('resume-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const resumeText = document.getElementById('resume_text').value;
 
-            var range = document.createRange();
+            // OpenAI API 호출
+            const response = await fetch('https://api.openai.com/v1/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer YOUR_OPENAI_API_KEY' // 여기에 본인의 API 키를 입력하세요
+                },
+                body: JSON.stringify({
+                    model: 'gpt-4',  // 또는 사용하고자 하는 모델 이름
+                    prompt: resumeText,
+                    max_tokens: 1000
+                })
+            });
+
+            const data = await response.json();
+            const result = data.choices[0].text.trim(); // 결과 텍스트
+
+            // 피드백 영역에 결과 표시
+            document.getElementById('feedback-content').innerText = result;
+        });
+
+        // 피드백 복사 기능
+        function copyFeedback() {
+            const feedbackContent = document.getElementById("feedback-content");
+            const range = document.createRange();
             range.selectNode(feedbackContent);
             window.getSelection().removeAllRanges();
             window.getSelection().addRange(range);
